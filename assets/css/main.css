@@ -1,0 +1,295 @@
+/* Design System & Motion Tokens - Light Greenish Blue (Airy Seafoam / Sage-Teal) */
+:root {
+  /* Luminous Light Greenish-Blue Palette */
+  --bg-primary: #edf5f4;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #f4faf9;
+  --bg-surface-hover: #e0efed;
+  
+  --text-main: #112220;
+  --text-primary: #112220;
+  --text-cream: #112220;
+  --text-cream-light: #091514;
+  --text-muted: #4e6b66;
+  --text-dim: #adc9c4;
+  
+  --border-subtle: #d1e5e2;
+  --border-focus: #0f766e;
+  
+  --accent: #0f766e;
+  --accent-light: #ccfbf1;
+  --accent-glow: rgba(15, 118, 110, 0.1);
+
+  /* Typography */
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'Space Mono', 'JetBrains Mono', monospace;
+
+  --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.8125rem);
+  --text-sm: clamp(0.875rem, 0.825rem + 0.25vw, 0.9375rem);
+  --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --text-lg: clamp(1.15rem, 1.05rem + 0.5vw, 1.35rem);
+  --text-xl: clamp(1.35rem, 1.2rem + 0.75vw, 1.75rem);
+  --text-2xl: clamp(1.8rem, 1.5rem + 1.5vw, 2.75rem);
+  --text-3xl: clamp(2.5rem, 2rem + 2.5vw, 4.25rem);
+  --text-hero: clamp(3.2rem, 2.5rem + 5vw, 7.5rem);
+
+  /* Motion Tokens */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 0.3s;
+  --duration-base: 0.7s;
+
+  /* Layout */
+  --container-max: 1200px;
+  --nav-height: 72px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: auto;
+  overflow-x: clip;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: clip;
+  cursor: default;
+}
+
+/* Lenis smooth scrolling integration to prevent double scrollbars */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+
+/* Accessibility & Focus States */
+:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* Fluid Container with Safe-Area Insets for Mobile */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: max(1rem, env(safe-area-inset-left, 1rem));
+  padding-right: max(1rem, env(safe-area-inset-right, 1rem));
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding-left: clamp(1.25rem, 4vw, 3rem);
+    padding-right: clamp(1.25rem, 4vw, 3rem);
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: var(--container-max);
+  }
+}
+
+@media (min-width: 1400px) {
+  .container {
+    max-width: var(--container-max);
+  }
+}
+
+/* Typography Helpers */
+.mono-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.section-label-group {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+.section-label-group .section-line {
+  flex: 1;
+  height: 1px;
+  background-color: var(--border-subtle);
+  transform-origin: left center;
+}
+
+/* Interactive Link Hover Effect (left to right draw) */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.interactive-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.interactive-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1.5px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.interactive-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* Button System */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.6rem;
+  border-radius: 9999px;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid transparent;
+  transition: transform var(--duration-fast) var(--ease-out),
+              box-shadow var(--duration-fast) var(--ease-out),
+              background-color var(--duration-fast) var(--ease-out),
+              color var(--duration-fast) var(--ease-out),
+              border-color var(--duration-fast) var(--ease-out);
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn-primary {
+  background-color: var(--text-main);
+  color: #ffffff;
+  border-color: var(--text-main);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(15, 118, 110, 0.25);
+}
+
+.btn-secondary {
+  background-color: var(--bg-surface);
+  color: var(--text-main);
+  border-color: var(--border-subtle);
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background-color: var(--bg-surface-elevated);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(15, 118, 110, 0.08);
+}
+
+/* Tech tag styling */
+.tech-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  background-color: var(--bg-surface);
+  color: var(--text-main);
+  border: 1px solid var(--border-subtle);
+}
+
+/* Image Placeholder & Loading */
+.img-placeholder {
+  background-color: var(--bg-surface-hover);
+  position: relative;
+  overflow: hidden;
+}
+
+.img-placeholder::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+  transform: translateX(-100%);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Nuxt Page Transitions */
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+}
+
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-12px);
+}
+
+/* Reduced Motion Mode */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .page-enter-active,
+  .page-leave-active {
+    transition: none !important;
+  }
+  
+  .img-placeholder::after {
+    animation: none !important;
+  }
+}

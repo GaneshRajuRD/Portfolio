@@ -1,0 +1,22 @@
+# Nuxt build output
+.output
+.nuxt
+dist
+node_modules
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Reference materials (must not be committed or built)
+reference/
+
+# OS files
+.DS_Store
+Thumbs.db
