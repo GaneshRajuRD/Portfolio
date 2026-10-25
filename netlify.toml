@@ -1,9 +1,9 @@
 [build]
-  command = "npm run generate"
-  publish = ".output/public"
+  command = "[ -x node_modules/.bin/nuxt ] || npm install --no-audit --no-fund; npm run generate"
+  publish = "dist"
 
 [build.environment]
-  NODE_VERSION = "20"
+  NODE_VERSION = "24"
 
 [[redirects]]
   from = "/*"
